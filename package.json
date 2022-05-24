@@ -1,8 +1,13 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "description": "基于react-router v6版本的路由守卫，让你能使用类似vue-router那样的路由守卫",
-  "keywords": ["react-router-block","react路由守卫","react-router-guard","react-router-waiter"],
+  "keywords": [
+    "react-router-block",
+    "react路由守卫",
+    "react-router-guard",
+    "react-router-waiter"
+  ],
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -24,7 +29,6 @@
     "url": "https://github.com/left0ver/react-router-block/issues"
   },
   "homepage": "https://github.com/left0ver/react-router-block#readme",
-  
   "scripts": {
     "patch": "npm version patch && npm publish",
     "minor": "npm version minor && npm publish",
