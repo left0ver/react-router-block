@@ -8,12 +8,17 @@
     "src"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "scripts": {
     "patch": "npm version patch && npm publish",
     "minor": "npm version minor && npm publish",
     "major": "npm version major && npm publish",
+    "tag": "git tag -a v%npm_package_version% && git push origin v%npm_package_version%",
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
@@ -23,7 +28,8 @@
     "analyze": "size-limit --why"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=16.8",
+    "react-router-dom": ">=6.0"
   },
   "husky": {
     "hooks": {
