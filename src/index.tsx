@@ -6,21 +6,21 @@ import {
   useNavigate,
   RouteObject,
 } from 'react-router-dom'
-export interface RouterLocation extends Omit<Location, 'pathname'> {
+export interface To extends Omit<Location, 'pathname'> {
   path: string
 }
-export type From = RouterLocation | null
+export type From = To | null
 export type Next = (path?: string) => void
 export type BeforeEnter =
-  | ((to: RouterLocation, next: Next, from: From) => void)
-  | ((to: RouterLocation, next: Next) => void)
-interface RouterBlock {
+  | ((to: To, next: Next, from: From) => void)
+  | ((to: To, next: Next) => void)
+interface RouterBlockProps {
   routes: RouteObject[]
   beforeEnter: BeforeEnter
 }
 // TODO:可以选择路由表或者直接使用routes
 let from: From = null
-function RouterBlock({ routes, beforeEnter }: RouterBlock) {
+function RouterBlock({ routes, beforeEnter }: RouterBlockProps) {
   const navigate = useNavigate()
   const { pathname: path, ...rest } = useLocation()
   const next: Next = to => {
