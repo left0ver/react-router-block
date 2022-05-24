@@ -1,0 +1,67 @@
+{
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "patch": "yarn version --patch && yarn publish",
+    "minor": "yarn version --minor && yarn publish",
+    "major": "yarn version --major && yarn publish",
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "react-router-block",
+  "author": "left0ver",
+  "module": "dist/mylib.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/mylib.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/mylib.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^7.0.8",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4",
+    "husky": "^8.0.1",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "size-limit": "^7.0.8",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "react-router-dom": "^6.3.0"
+  }
+}
