@@ -88,3 +88,6 @@ export default App;
 
 这儿有一个[例子](https://github.com/left0ver/react-router-block/blob/main/example)，建议您看一看
 
+# LICENSE
+
+[MIT](https://github.com/left0ver/react-router-block/blob/main/LICENSE)
