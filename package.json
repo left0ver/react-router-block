@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -11,9 +11,9 @@
     "node": ">=10"
   },
   "scripts": {
-    "patch": "yarn version --patch && yarn publish",
-    "minor": "yarn version --minor && yarn publish",
-    "major": "yarn version --major && yarn publish",
+    "patch": "npm version patch && npm publish",
+    "minor": "npm version minor && npm publish",
+    "major": "npm version major && npm publish",
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
