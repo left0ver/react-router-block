@@ -31,7 +31,7 @@ function App() {
           next()
         }
       }}>
-        {/* 使用children的写法 */}
+        {/* 使用children的写法 ，routes和children同时有,children生效*/}
       <Routes>
         <Route path="/" element={<Suspense><Home/></Suspense>} />
         <Route path="/cart" element={<Suspense><Cart/></Suspense>} />
@@ -51,11 +51,7 @@ function App() {
   ); 
 
   function handleClick() {
-    if (!isLogin) {
-      setMsg('已登录')
-    }else {
-      setMsg('未登录')
-    }
+    !isLogin ? setMsg('已登录'):setMsg('未登录')
     setIsLogin(!isLogin);
   }
 }
