@@ -28,47 +28,62 @@ type From = To | null;
 type Next = (path?: string) => void;
 type BeforeEnter = ((to: To, next: Next, from: From) => void) | ((to: To, next: Next) => void);
 interface RouterBlockProps {
-    routes: RouteObject[];
+    routes?: RouteObject[];
     beforeEnter: BeforeEnter;
+    children?: React.ReactNode
 }
 
-
 ```
+
 # Usage
 
+RouterBlock可以传入两个参数
+1. 第一个参数是beforeEnter, 调用next可以函数跳转到你要去的页面,调用多次以最后一次为准 （必传）
+
+2. 一个是routes,就是react-router使用useRoutes配置的路由表,配置项和react-router的一模一样（可选）
+或者一个children（在RouterBlock组件内部配置路由，和react-router配置路由的方式一样）,**routes和children二者必须要有一个**,如果两者都有，则children的配置会生效,使用children的方式配置路由的时候可以使用懒加载
+
 ```tsx
-import React, { useState } from 'react';
-import {Link} from 'react-router-dom'
+
+import {Routes,Route} from 'react-router-dom'
 // 导入类型和组件
 import  RouterBlock  from 'react-router-block'
-import type {Next,RouterLocation,From} from 'react-router-block'
+import type {Next,To,From} from 'react-router-block'
 // 导入路由表
 import routes from './router';
+
+// 懒加载导入，使用children的写法可以使用懒加载
+const Home = lazy(() =>import ("./pages/Home"))
+const Cart = lazy(() =>import ("./pages/Cart"))
+const Login = lazy(() =>import ("./pages/Login"))
+const Profile = lazy(() =>import ("./pages/Profile"))
+const ProfileSetting = lazy(() =>import ("./pages/Profile/ProfileSetting"))
+const ProfileDetail = lazy(() =>import ("./pages/Profile/ProfileDetail"))
 function App() {
   const [msg,setMsg] =useState('未登录')
   const [isLogin,setIsLogin] = useState(false)
   return (
     <div className="App">
-      <Link to="/home">去Home页面</Link>
-      <Link to="/login">去Login页面</Link>
-      <Link to="/profile">去Profile页面</Link>
-      <Link to="/profile/setting">去ProfileSetting页面</Link>
-
-    {/*具体使用 RouterBlock要求传入两个参数，
-      *一个是routes,就是react-router使用useRoutes配置的路由表,配置项和一模一样
-      *第二个参数是beforeEnter, 调用next可以函数跳转到你要去的页面,调用多次以最后一次为准
-      */}
+      {/*routes的写法*/}
       <RouterBlock routes={routes} beforeEnter={(to:To,next:Next,from:From) => {
         if (to.path!=='/login' && to.path!=="/" && !isLogin) {
           next('/login');
         }else {
-            next()
+          next()
         }
-      }}/>
-      <br />
-      <div>{msg}</div>
-      <br />
-      <button onClick={handleClick}>改变登录状态</button>
+      }}>
+        {/* 使用children的写法 */}
+         <Routes>
+           <Route path="/" element={<Suspense><Home/></Suspense>} />
+           <Route path="/cart" element={<Suspense><Cart/></Suspense>} />
+           <Route path="/login" element={<Suspense><Login/></Suspense>} />
+           <Route path="/profile" element={<Suspense><Profile/></Suspense>} >
+              <Route index element={<Suspense><ProfileSetting/></Suspense>} />
+              <Route path="setting" element={<Suspense><ProfileSetting/></Suspense>} />
+              <Route path="detail" element={<Suspense><ProfileDetail/></Suspense>} />
+           </Route>
+         </Routes>
+      </RouterBlock>
     </div>
   ); 
 
@@ -84,9 +99,10 @@ function App() {
 
 export default App;
 
+
 ```
 
-这儿有一个[例子](https://github.com/left0ver/react-router-block/blob/main/example)，建议您看一看
+这儿有一个[例子](https://github.com/left0ver/react-router-block/blob/main/example)，建议你看一看
 
 # LICENSE
 

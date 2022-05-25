@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react'
+import React, { useEffect, memo } from 'react'
 import {
   useLocation,
   useRoutes,
@@ -15,18 +15,21 @@ export type BeforeEnter =
   | ((to: To, next: Next, from: From) => void)
   | ((to: To, next: Next) => void)
 interface RouterBlockProps {
-  routes: RouteObject[]
+  routes?: RouteObject[]
   beforeEnter: BeforeEnter
+  children?: React.ReactNode
 }
-// TODO:可以选择路由表或者直接使用routes
+
 let from: From = null
-function RouterBlock({ routes, beforeEnter }: RouterBlockProps) {
+function RouterBlock({ routes = [], beforeEnter, children }: RouterBlockProps) {
+  if (children === undefined && routes.length === 0) {
+    throw new Error('children 和 routes必须要有一个')
+  }
   const navigate = useNavigate()
   const { pathname: path, ...rest } = useLocation()
+  const renderElement = useRoutes(routes)
   const next: Next = to => {
-    if (typeof to === 'undefined') {
-      return
-    }
+    if (typeof to === 'undefined') return
     if (typeof to === 'string') {
       to.startsWith('/') ? navigate(to) : navigate(`${path}/${to}`)
     }
@@ -38,6 +41,6 @@ function RouterBlock({ routes, beforeEnter }: RouterBlockProps) {
       from = { ...rest, path }
     }
   })
-  return useRoutes(routes)
+  return <div> {children !== undefined ? children : renderElement}</div>
 }
 export default memo(RouterBlock)

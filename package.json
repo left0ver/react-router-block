@@ -6,7 +6,8 @@
     "react-router-block",
     "react路由守卫",
     "react-router-guard",
-    "react-router-waiter"
+    "react-router-waiter",
+    "路由守卫"
   ],
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -37,7 +38,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
-    "lint": "tsdx lint",
+    "lint": "tsdx lint --fix",
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why"
@@ -59,14 +60,14 @@
   },
   "name": "react-router-block",
   "author": "left0ver",
-  "module": "dist/mylib.esm.js",
+  "module": "dist/react-router-block.esm.js",
   "size-limit": [
     {
-      "path": "dist/mylib.cjs.production.min.js",
+      "path": "dist/react-router-block.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/mylib.esm.js",
+      "path": "dist/react-router-block.esm.js",
       "limit": "10 KB"
     }
   ],
