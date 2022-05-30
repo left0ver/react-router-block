@@ -11,15 +11,11 @@ export interface To extends Omit<Location, 'pathname'> {
 }
 export type From = To | null
 export type Next = (path?: string) => void
-export type BeforeEnter =
-  | ((to: To, next: Next, from: From) => void)
-  | ((to: To, next: Next) => void)
 interface RouterBlockProps {
   routes?: RouteObject[]
-  beforeEnter: BeforeEnter
+  beforeEnter: (to: To, next: Next, from: From) => void
   children?: React.ReactNode
 }
-
 let from: From = null
 function RouterBlock({ routes = [], beforeEnter, children }: RouterBlockProps) {
   if (children === undefined && routes.length === 0) {
@@ -29,7 +25,7 @@ function RouterBlock({ routes = [], beforeEnter, children }: RouterBlockProps) {
   const { pathname: path, ...rest } = useLocation()
   const renderElement = useRoutes(routes)
   const next: Next = to => {
-    if (typeof to === 'undefined') return
+    if (to === undefined) return
     if (typeof to === 'string') {
       to.startsWith('/') ? navigate(to) : navigate(`${path}/${to}`)
     }

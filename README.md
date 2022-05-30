@@ -26,10 +26,9 @@ react-router-block是一个基于react-router v6版本的路由守卫，让你�
  }
 type From = To | null;
 type Next = (path?: string) => void;
-type BeforeEnter = ((to: To, next: Next, from: From) => void) | ((to: To, next: Next) => void);
 interface RouterBlockProps {
     routes?: RouteObject[];
-    beforeEnter: BeforeEnter;
+    beforeEnter: (to: To, next: Next, from: From) => void;
     children?: React.ReactNode
 }
 
@@ -48,7 +47,6 @@ RouterBlock可以传入两个参数
 import {Routes,Route} from 'react-router-dom'
 // 导入类型和组件
 import  RouterBlock  from 'react-router-block'
-import type {Next,To,From} from 'react-router-block'
 // 导入路由表
 import routes from './router';
 
@@ -65,7 +63,7 @@ function App() {
   return (
     <div className="App">
       {/*routes的写法*/}
-      <RouterBlock routes={routes} beforeEnter={(to:To,next:Next,from:From) => {
+      <RouterBlock routes={routes} beforeEnter={(to,next,from) => {
         if (to.path!=='/login' && to.path!=="/" && !isLogin) {
           next('/login');
         }else {

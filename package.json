@@ -1,5 +1,5 @@
 {
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "description": "基于react-router v6版本的路由守卫，让你能使用类似vue-router那样的路由守卫",
   "keywords": [

@@ -2,7 +2,6 @@ import React, { useState,lazy,Suspense } from 'react';
 import {Link,Routes,Route} from 'react-router-dom'
 // 导入类型和组件
 import  RouterBlock  from 'react-router-block'
-import type {Next,To,From} from 'react-router-block'
 // 导入路由表
 import routes from './router';
 import './App.css'
@@ -24,7 +23,7 @@ function App() {
       <Link to="/profile">去Profile页面</Link>
       <Link to="/profile/setting">去ProfileSetting页面</Link>
       <Link to="/profile/detail">去ProfileDetail页面</Link>
-      <RouterBlock routes={routes} beforeEnter={(to:To,next:Next,from:From) => {
+      <RouterBlock routes={routes} beforeEnter={(to,next) => {
         if (to.path!=='/login' && to.path!=="/" && !isLogin) {
           next('/login');
         }else {
